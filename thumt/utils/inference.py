@@ -74,7 +74,7 @@ def _get_inference_fn(model_fns, features):
                 next_state.append({})
 
         # Ensemble
-        log_prob = sum(outputs) / float(len(outputs))
+        log_prob = np.mean(outputs)
 
         return log_prob.float(), next_state
 
