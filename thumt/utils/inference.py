@@ -8,6 +8,8 @@ from __future__ import print_function
 import math
 import torch
 
+import numpy as np
+
 from collections import namedtuple
 from thumt.utils.nest import map_structure
 
@@ -283,7 +285,7 @@ def argmax_decoding(models, features, params):
         logits, _ = model.decode(features, state, "eval")
         log_probs.append(torch.nn.functional.log_softmax(logits, dim=-1))
 
-    log_prob = sum(log_probs) / len(models)
+    log_prob = np.mean(models)
     ret = torch.max(log_prob, -1)
     values = torch.reshape(ret.values, shape)
     indices = torch.reshape(ret.indices, shape)
